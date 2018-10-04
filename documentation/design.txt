@@ -1,0 +1,118 @@
+Thursday, 04-10-2018, 05:47
+Mohammad Abouchama 'Hamade'
+
+Summary
+    Similar to stack overflow.
+
+    Contains functionality related to:
+        Questions and answers
+        Custom authentication and registration
+        Extended user profile
+        Comments
+        Voting system
+        Notifications
+
+    Anonymous users, or users without an account/profile, can browse questions
+    and answers. As well as see the replies or comments, and the number of votes
+    each question or answer gets.
+
+    However, to post questions, answers, comments, and vote the user must have an
+    account.
+
+    Unlike stack overflow the ranking does not determine the privileges or
+    abilities of the user. Any registered user can vote, comment, ask, or answer.
+
+    Registered users can also choose which question or answer is their favorite.
+    They can add each question or answer to their profile's list of favorite
+    questions, or answers. The two are separate.
+
+    Comments or replies can be posted on questions or answers. These can be used
+    for clarifications or the share of some simple insight or opinions that
+    cannot be qualified as answers nor questions.
+
+    Registered users can either up-vote or down-vote a question or an answer.
+    The app will display the difference between the votes. A positive number
+    means more up-votes than down-votes, and a negative number means the
+    opposite.
+
+    Users must provide an email address, a user name, as well as a valid password,
+    to sign up. If all is well they will be sent an email to their email address.
+    This email is a confirmation email that gives the user url to follow to
+    confirm their account. Once they follow the url they will be redirected to the
+    questions_list page.
+
+    The extended user profile stores the user name, email address, and the
+    optional first name, last name, and profile picture.
+    The user account also has a preferences page, where lists of links to the
+    user's favorite questions, favorite answers, posted answers, posted questions,
+    voted answers, voted questions, and comments.
+
+    The user's account will also be linked to the notifications page.
+    Whenever a user's own question or answer gets replied to, voted, answered, or
+    selected, a message pops up in the user's notifications informing him/her of
+    such an action.
+
+    The main page of this app or site is the questions page. This is where a
+    list of questions, ordered by the most recent date published, is displayed to
+    the users. The users can click on a question to see it in detail.
+    To post answers, comments, and votes, the user must visit the detail page of a
+    question.
+
+Data
+    # User's
+    User
+        user name
+        password
+        email address
+    Profile
+        first name
+        last name
+        profile picture
+        bio - A few words about oneself
+        list of favorite questions
+        list of favorite answers
+        list of own answers
+        list of own questions
+        list of own comments
+        list of voted questions
+        list of voted answers
+
+    Questions
+        Title
+        Description
+        Date and time posted
+        Author
+    Answers
+        Content
+        Date and time posted
+        Author
+    Comments
+        Content
+        Date and time posted
+        Author
+
+    Notification - To be implemented later
+
+    Data relations
+        A question has 0 or more answers
+        An answer has 1 question only, no less and no more
+        A comment is for 1 question or answer only, no less and no more
+        A question or an answer has 0 or more comments/replies
+        A user has exactly 1 profile.
+        A profile has 0 or more questions/answers listed as favorite
+        A profile has 0 or more own questions/answers/comments
+        A profile has 0 or more voted questions/answers
+
+    Functionality
+        Browse Questions
+        View Question
+            Browse Answers to Question
+            View Comments to Question
+            View Comments to Answers
+            View Votes
+        Edit User Profile
+            Change email address
+            Change username
+            Change profile picture
+            Change bio
+        Reset password

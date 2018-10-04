@@ -1,0 +1,41 @@
+Mohammad Abouchama 'Hamade'
+Thursday, 04-10-2018, 12:14
+
+Details about views, templates, processes, models, forms, and what else
+will be coded and how.
+
+Apps
+    Registration
+    Questions
+
+Models
+
+    Question
+        title
+        date_time_posted
+        author: fk to User
+        description
+        up_votes_count
+        down_votes_count
+
+    Answer
+        question: fk to Question
+        date_time_posted
+        author: fk to User
+        content
+        up_votes_count
+        down_votes_count
+
+    Profile
+        user: fk to User
+        first_name
+        last_name
+        bio
+
+    Comment
+        author: fk to User
+        date_time_posted
+        content
+
+Views
+    

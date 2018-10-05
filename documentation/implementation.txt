@@ -22,7 +22,7 @@ Models
         question: fk to Question
         date_time_posted
         author: fk to User
-        content
+        description (aka content)
         up_votes_count
         down_votes_count
 
@@ -38,4 +38,3 @@ Models
         content
 
 Views
-    

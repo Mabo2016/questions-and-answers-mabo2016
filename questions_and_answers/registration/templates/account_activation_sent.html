@@ -1,0 +1,19 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h2>Jewelry App</h2>
+    <br>
+    <br>
+    {% if not user.is_authenticated %}
+        <a href="{% url 'login' %}">Login</a> /
+        <a href="{% url 'signup' %}">Sign up</a>
+    {% endif %}
+    <hr>
+    <p>Account activation email sent.</p>
+    <p>Please check your email to activate your account.</p>
+    <!--Without this there will be a default navbar included.
+        Also, cannot include the links inside this block otherwise they will
+        rendered twice for some reason.-->
+    {% block sidebar %}
+    {% endblock %}
+{% endblock %}

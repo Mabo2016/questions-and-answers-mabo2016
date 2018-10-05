@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Home</h1>
+    <p>
+        This web site is used to seek answers to important questions.
+        Go to the <a href="{% url 'questions' %}">questions</a> page to check
+        if your question has already been asked.
+        <br>
+        Though do make sure you are logged in before trying to ask a question.
+    </p>
+{% endblock %}

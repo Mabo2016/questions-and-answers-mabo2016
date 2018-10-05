@@ -1,0 +1,38 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Questions</h1>
+
+    <form action="{% url 'ask_question' %}" method="GET">
+        {% csrf_token %}
+        <button type="submit">Ask a Question</button>
+    </form>
+
+    {% if question_list %}
+        {% for question in question_list %}
+            <li>
+                <a href="{{ question.get_absolute_url }}">
+                    <p class='question_title'>
+                        {{ question.title }} by {{question.author.username}}
+                    </p>
+
+                    <div class='question_block'>
+                        <span class='question_votes'>
+                            Up-votes = {{question.up_votes_count}}
+                            Down-votes = {{question.down_votes_count}}
+                        </span>
+                        <span class='question_answer_count'>
+                            {% if question.answer_set %}
+                            Answers = {{question.answer_set.count}}
+                            {% else %}
+                            Answers = 0
+                            {% endif %}
+                        </span>
+                    </div>
+                </a>
+            </li>
+        {% endfor %}
+    {% else %}
+    <p>There are not questions</p>
+    {% endif %}
+{% endblock %}

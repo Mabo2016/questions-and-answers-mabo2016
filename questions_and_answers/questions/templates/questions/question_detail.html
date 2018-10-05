@@ -1,0 +1,42 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>{{question.title}}</h1>
+
+    <p>{{question.description}}</p>
+
+    <p>{{question.author}}</p>
+
+    <p>{{question.date_time_posted}}</p>
+
+    <form action="{% url 'vote_question_up' pk=question.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Vote Up</button>
+    </form>
+
+    <form action="{% url 'vote_question_down' pk=question.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Vote Down</button>
+    </form>
+
+    <form action="{% url 'post_answer' pk=question.id %}">
+        {% csrf_token %}
+        <button type="submit">Post an Answer</button>
+    </form>
+
+    {% if question.answer_set.all %}
+    <ul>
+        {% for answer in question.answer_set.all %}
+        <li>
+            <p>{{answer.description}}</p>
+            <p>
+                By {{answer.author.username}},
+                 on {{answer.date_time_posted}}
+            </p>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p> This question has not been answered yet.</p>
+    {% endif %}
+{% endblock %}

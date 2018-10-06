@@ -16,9 +16,6 @@ class QuestionDetailView(generic.DetailView):
 
 @login_required
 def ask_question(request):
-    #new_question = Question(title=title, author=request.user, description=description)
-    #return HttpResponseRedirect(reverse('question_detail', args=(pk,)))
-
     if request.method == 'POST':
         form = AskQuestionForm(request.POST)
         if form.is_valid():

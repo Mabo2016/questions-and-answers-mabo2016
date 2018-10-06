@@ -32,7 +32,7 @@ class AnswerComment(models.Model):
 
     def __str__(self):
         """Identifies the object"""
-        return f"Comment {self.id} by {author.username} to answer {answer.id} of question '{answer.question.title}'"
+        return f"Comment {self.id} by {self.author.username} to answer {self.answer.id} of question '{self.answer.question.title}'"
 
     def get_absolute_url(self):
         """Returns url to detail page of the question"""

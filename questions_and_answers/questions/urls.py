@@ -9,8 +9,6 @@ urlpatterns = [
     path("question/question_vote_up/<int:pk>", views.question_views.vote_question_up, name="vote_question_up"),
     path("question/question_vote_down/<int:pk>", views.question_views.vote_question_down, name="vote_question_down"),
     path("question/<int:pk>/answer_post", views.answer_views.post_answer, name="post_answer"),
+    path("question/<int:pk>/questioncomment_post", views.comment_views.post_comment_to_question, name="reply_to_question"),
+    path("question/<int:pk>/answercomment_post", views.comment_views.reply_to_answer, name="reply_to_answer"),
 ]
-
-
-#path("question/<int:pk>/answer_vote_up/<int:pk>", views.answer_views.vote_answer_up, name="vote_answer_up"),
-#path("question/<int:pk>/answer_vote_down/<int:pk>", views.answer_views.vote_answer_down, name="vote_answer_down"),

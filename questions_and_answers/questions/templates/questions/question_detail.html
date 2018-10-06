@@ -3,40 +3,86 @@
 {% block content %}
     <h1>{{question.title}}</h1>
 
-    <p>{{question.description}}</p>
+    <div class="question-div">
+        <p>{{question.description}}</p>
 
-    <p>{{question.author}}</p>
+        <p>{{question.author}}</p>
 
-    <p>{{question.date_time_posted}}</p>
+        <p>{{question.date_time_posted}}</p>
 
-    <form action="{% url 'vote_question_up' pk=question.id %}" method="POST">
-        {% csrf_token %}
-        <button type="submit">Vote Up</button>
-    </form>
+        <form action="{% url 'vote_question_up' pk=question.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Vote Up</button>
+        </form>
 
-    <form action="{% url 'vote_question_down' pk=question.id %}" method="POST">
-        {% csrf_token %}
-        <button type="submit">Vote Down</button>
-    </form>
+        <form action="{% url 'vote_question_down' pk=question.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Vote Down</button>
+        </form>
 
-    <form action="{% url 'post_answer' pk=question.id %}">
-        {% csrf_token %}
-        <button type="submit">Post an Answer</button>
-    </form>
+        <div class="question_comments_div">
+            <h3>Replies to the question</h3>
+            {% if question.questioncomment_set.all %}
+            <ul>
+                {% for comment in question.questioncomment_set.all %}
+                <li>
+                    {{ comment.description }} - {{ comment.author.username }} {{comment.date_time_posted}}
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>This question has no comments.</p>
+            {% endif %}
+            <form action="{% url 'reply_to_question' pk=question.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit">Add a Comment</button>
+            </form>
+        </div>
+    </div>
 
-    {% if question.answer_set.all %}
-    <ul>
-        {% for answer in question.answer_set.all %}
-        <li>
-            <p>{{answer.description}}</p>
-            <p>
-                By {{answer.author.username}},
-                 on {{answer.date_time_posted}}
-            </p>
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p> This question has not been answered yet.</p>
-    {% endif %}
+    <div class="answer_div">
+        <h3>Answers</div>
+
+        {% if question.answer_set.all %}
+        <ul>
+            {% for answer in question.answer_set.all %}
+            <li>
+                <p>{{answer.description}}</p>
+                <p>
+                    By {{answer.author.username}},
+                     on {{answer.date_time_posted}}
+                </p>
+                <div class="answer_comments_div">
+                    <h3>Replies to the answer</h3>
+                    {% if answer.answercomment.all %}
+                    <ul>
+                        {% for comment in answer.answercomment.all %}
+                        <li>
+                            {{ comment.description }} - {{ comment.author.username }} {{comment.date_time_posted}}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p>This answer has no comments.</p>
+                    {% endif %}
+                    <form action="{% url 'reply_to_answer' pk=answer.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit">Add a Comment</button>
+                    </form>
+                </div>
+            </li>
+
+
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p> This question has not been answered yet.</p>
+        {% endif %}
+
+        <form action="{% url 'post_answer' pk=question.id %}">
+            {% csrf_token %}
+            <button type="submit">Post an Answer</button>
+        </form>
+
+    </div>
 {% endblock %}

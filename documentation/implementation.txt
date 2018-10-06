@@ -35,6 +35,5 @@ Models
     Comment
         author: fk to User
         date_time_posted
-        content
-
-Views
+        description
+        original_post: fk to a question or an answer

@@ -3,23 +3,25 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import date
 
-from questions.models import Question
+from questions.models import Answer
 
-class Answer(models.Model):
-    """An answer to a certain question"""
+class AnswerComment(models.Model):
+    """A short reply to an answer"""
 
-    description = models.TextField(
+    description = models.CharField(
+        max_length = 500,
         null=True,
         blank=True,
-        help_text="Describe the answer in detail"
+        help_text="Describe your opinion in 2-3 sentences or less",
     )
 
     date_time_posted = models.DateField(auto_now = True)
 
-    question = models.ForeignKey(
-        Question,
+    answer = models.ForeignKey(
+        Answer,
         on_delete=models.CASCADE,
         null=True,
+        help_text="The answer being replied to",
     )
 
     author = models.ForeignKey(
@@ -28,18 +30,10 @@ class Answer(models.Model):
         null=True,
     )
 
-    up_votes_count = models.IntegerField(
-        default=0,
-    )
-
-    down_votes_count = models.IntegerField(
-        default=0,
-    )
-
     def __str__(self):
         """Identifies the object"""
-        return f"Answer {self.id} to {self.question.title}"
+        return f"Comment {self.id} by {self.author.username} to answer {self.answer.id} of question '{self.answer.question.title}'"
 
     def get_absolute_url(self):
         """Returns url to detail page of the question"""
-        return reverse("question_detail", args = [str(self.question.id)])
+        return reverse("question_detail", args = [str(self.answer.question.id)])

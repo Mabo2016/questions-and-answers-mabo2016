@@ -9,29 +9,38 @@
     </form>
 
     {% if question_list %}
-        {% for question in question_list %}
-            <li>
-                <a href="{{ question.get_absolute_url }}">
-                    <p class='question_title'>
-                        {{ question.title }} by {{question.author.username}}
-                    </p>
+    <table class="answers_table">
+        <tbody>
+            {% for question in question_list %}
+                <tr>
+                    <td class='question_title'>
+                        <a href="{{ question.get_absolute_url }}">
+                            {{ question.title }}
+                        </a>
+                    </td>
+                    
+                    <td class="question_up_votes">
+                        <p>{{question.up_votes_count}}</p>
+                        <p>Up-votes</p>
+                    </td>
 
-                    <div class='question_block'>
-                        <span class='question_votes'>
-                            Up-votes = {{question.up_votes_count}}
-                            Down-votes = {{question.down_votes_count}}
-                        </span>
-                        <span class='question_answer_count'>
-                            {% if question.answer_set %}
-                            Answers = {{question.answer_set.count}}
-                            {% else %}
-                            Answers = 0
-                            {% endif %}
-                        </span>
-                    </div>
-                </a>
-            </li>
-        {% endfor %}
+                    <td class="question_down_votes">
+                        <p>{{question.down_votes_count}}</p>
+                        <p>Down-votes</p>
+                    </td>
+
+                    <td class="question_answers_count">
+                        <p>{{question.answer_set.count}}</p>
+                        <p>Answers</p>
+                    </td>
+
+                    <td class="question_list_author">
+                        {{question.author.username}}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     {% else %}
     <p>There are not questions</p>
     {% endif %}

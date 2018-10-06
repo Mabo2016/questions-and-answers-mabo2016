@@ -33,7 +33,7 @@
             {% else %}
             <p>This question has no comments.</p>
             {% endif %}
-            <form action="{% url 'reply_to_question' pk=question.id %}" method="POST">
+            <form action="{% url 'reply_to_question' pk=question.id %}" method="GET">
                 {% csrf_token %}
                 <button type="submit">Add a Comment</button>
             </form>
@@ -41,37 +41,40 @@
     </div>
 
     <div class="answer_div">
-        <h3>Answers</div>
+
+        <h3>Answers</h3>
 
         {% if question.answer_set.all %}
         <ul>
             {% for answer in question.answer_set.all %}
             <li>
                 <p>{{answer.description}}</p>
+
                 <p>
                     By {{answer.author.username}},
                      on {{answer.date_time_posted}}
                 </p>
-                <div class="answer_comments_div">
-                    <h3>Replies to the answer</h3>
-                    {% if answer.answercomment.all %}
-                    <ul>
-                        {% for comment in answer.answercomment.all %}
-                        <li>
-                            {{ comment.description }} - {{ comment.author.username }} {{comment.date_time_posted}}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    {% else %}
-                    <p>This answer has no comments.</p>
-                    {% endif %}
-                    <form action="{% url 'reply_to_answer' pk=answer.id %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit">Add a Comment</button>
-                    </form>
-                </div>
             </li>
 
+            <div class="answer_comments_div">
+                <h3>Replies to the answer</h3>
+
+                {% if answer.answercomment_set.all %}
+                <ul>
+                    {% for comment in answer.answercomment_set.all %}
+                    <li>
+                        {{ comment.description }} - {{ comment.author.username }} {{comment.date_time_posted}}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>This answer has no comments.</p>
+                {% endif %}
+                <form action="{% url 'reply_to_answer' pk=answer.id %}" method="GET">
+                    {% csrf_token %}
+                    <button type="submit">Add a Comment</button>
+                </form>
+            </div>
 
             {% endfor %}
         </ul>
